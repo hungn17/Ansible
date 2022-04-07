@@ -1,0 +1,32 @@
+---
+
+- name: Configure Apache 
+  lineinfile:
+   path: "{{ apache_server_root }}/conf/{{ apache_daemon }}.conf"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   state: present
+   create: yes
+   mode: 0777
+  with_items: "{{ apache_ports_configuration_items }}"
+  notify: restart apache
+  
+- name: Add apache vhost configuration 
+  template: 
+   src: "{{ apache_vhosts_template }}"
+   dest: "{{ apache_conf_path }}/{{ apache_vhosts_filename }}"
+   owner: root
+   group: root
+   mode: 0777
+  notify: restart apache
+  when : apache_create_vhosts | bool
+
+- name : Add picture to docs file
+  copy:
+   src: "Blue_marble_2015.jpg"
+   dest: "{{ apache_html }}"
+
+- name: Add content to html
+  copy: 
+   src: "index.html"
+   dest: "{{ apache_html }}"

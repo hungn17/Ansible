@@ -1,0 +1,18 @@
+---
+# tasks file for apache_2
+
+# Task include vars
+- name: Use Vars depend on OS_family host
+  include_vars: "{{ ansible_os_family }}.yml"
+
+
+# Task include install file 
+- name: Use Setup file Depend on OS_family host
+  include_tasks: "install_{{ ansible_os_family }}.yml"
+
+
+# Task include configure file
+- name: Use configure file depend on OS_family host
+  include_tasks: "configure_{{ ansible_os_family }}.yml"
+
+

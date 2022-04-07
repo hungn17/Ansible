@@ -1,0 +1,13 @@
+---
+
+- name: Install Apache package
+  yum:
+   name: "{{ apache_packages }}"
+   state: present
+
+- name: Start Apache Service
+  service:
+   name: httpd
+   state: started
+   enabled: yes
+   
