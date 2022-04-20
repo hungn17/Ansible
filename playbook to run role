@@ -1,0 +1,10 @@
+---
+#set role for site
+- name: Set up mysql
+  hosts: db
+  become: yes
+  become_user:
+  roles:
+  - mysql
+  - apache
+  - php
