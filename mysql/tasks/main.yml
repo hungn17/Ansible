@@ -1,0 +1,16 @@
+---
+# CHOOSE VARS
+- name: Defind os_family to use appropriate vars file
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# SETUP TASK:
+- name: Defind os_family to use appropriate vars file
+  include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+# CONFIGURE TASK:
+- include_tasks: configure.yml
+- include_tasks: secure-installation.yml
+- include_tasks: database.yml
+- include_tasks: user.yml
+
+

@@ -1,0 +1,31 @@
+---
+
+- name: Add reposity
+  template:
+   src: yum.repo.j2
+   dest: "{{ mysql_default_repofile }}"
+   owner: root
+   group: root
+   mode: 0644
+
+- name: Add gbgkey 
+  rpm_key:
+   key: "{{ mysql_default_gpgkey }}"
+   state: present
+    
+- name: Install MySQL
+  yum:
+   name: "{{ mysql_default_packages }}"
+   state: present
+
+- name: Install Python Package
+  yum:
+   name: "{{ mysql_default_python_packages }}"
+   state: present
+   
+- name: Start MySQL service
+  service: 
+   name: "{{ mysql_default_daemon }}"
+   enabled: yes
+   state: started
+ 
