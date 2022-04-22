@@ -1,0 +1,15 @@
+---
+# tasks file for php
+
+# CHOOSE VARIABLE TO USE DEPEND ON OS SYSTEM
+- name: Use variable file appropriate
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# CHOOSE SET UP FILE DEPEND ON OS SYSTEM
+- name: use set_up task file appropriate
+  include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+# TASK 
+- include_tasks: configure.yml
+- include_tasks: configure-fpm.yml
+
